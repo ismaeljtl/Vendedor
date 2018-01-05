@@ -1,0 +1,30 @@
+.container-login{
+    margin-top: 5%;
+}
+
+.form-control{
+    margin: 5px 0;
+}
+
+.producto{
+    width: 300px;
+    height: 300px;
+}
+
+.titulo, .container-producto{
+    text-align: center;
+}
+
+.heading{
+    height: 40px;
+    background-color: #31b0d5;
+    margin-bottom: 10px;
+}
+
+.salir{
+    margin-top: 3px;
+}
+
+.salir a {
+    color: white;
+}
