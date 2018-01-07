@@ -14,40 +14,37 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-    @if(Auth::check())
-        <div class="col-sm-12 heading">
-            <div class="col-sm-6">
-                <h4>Bienvenido {{ Auth::user()->usuario }}!</h4>
+        @if(Auth::check())
+            <div class="col-sm-12 heading">
+                <div class="col-sm-6">
+                    <h4>Bienvenido {{ Auth::user()->usuario }}!</h4>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <form class="form-signin" method="GET" action="Logout">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary salir">Salir</button>
+                    </form>
+                </div>
             </div>
-            <div class="col-sm-6 text-right">
-                <form class="form-signin" method="GET" action="Logout">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-primary salir">Salir</button>
-                </form>
+        @endif
+
+        <form method="" action="#">
+            <h1>¿Que desea comprar?</h1>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="col-sm-3"></div>
+            @foreach($productos as $producto)
+                <div class="col-sm-3 container-producto">
+                    <img class="producto" src="{{$producto->imagen}}" alt="{{$producto->nombre}}">
+                    <br/>
+                    <input type="checkbox" name="{{$producto->nombre}}" value="true">{{$producto->nombre}}
+                </div>
+            @endforeach
+            <br/>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-info">Comprar</button>
             </div>
-        </div>
-    @endif
-
-
-    <form action="/action_page.php">
-        <h1>¿Que desea comprar?</h1>
-        <div class="col-sm-6 container-producto">
-            <img class="producto" src="{{url('assets/img/camisa.jpg')}}" alt="camisa">
-            <br/>
-            <input type="checkbox" name="camisa" value="true">Camisa
-        </div>
-        <div class="col-sm-6 container-producto">
-            <img class="producto" src="{{url('assets/img/pantalon.jpg')}}" alt="pantalon">
-            <br/>
-            <input type="checkbox" name="pantalon" value="true">Pantalon
-        </div>
-        <br/>
-        <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-info">Comprar</button>
-        </div>
-    </form>
-
-
+        </form>
 
         <!-- jQuery -->
         <script src="{{url('assets/js/jquery.js')}}"></script>

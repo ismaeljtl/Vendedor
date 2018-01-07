@@ -21,6 +21,7 @@
             <br/>
             <input type="text" name="usuario" id="usuario-index" class="form-control" placeholder="Nombre de usuario" required autofocus>
             <input type="password" name="contraseña" id="contraseña" class="form-control" placeholder="Contraseña" required>
+            {!! Recaptcha::render() !!}
             <button class="btn btn-lg btn-primary btn-block" id="inicia-sesion" type="submit">Iniciar sesión</button>
             <br/>
         </form>

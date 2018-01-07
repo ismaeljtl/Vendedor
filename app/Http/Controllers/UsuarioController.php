@@ -44,12 +44,19 @@ class UsuarioController extends Controller
         $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
 
         $intento = $user->intentos;
-
+        $this->validate($request, [
+            'g-recaptcha-response' => 'required|recaptcha',
+        ]);
         if (Hash::check($request->input("contraseña"), $user->clave))
         {
             DB::table('Usuario')->where('id', $user->id)->update(['intentos' => 0]);
             Auth::loginUsingId($user->id);
-            return redirect("productos")->with('status', 'true');
+
+            $productos = DB::table('Producto')
+                            ->select('id', 'nombre', 'precio', 'descripcion', 'imagen')
+                            ->get();
+
+            return view("site.productos", ['productos' => $productos]);
         }
         else{
             $intento = $intento + 1;

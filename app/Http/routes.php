@@ -34,6 +34,9 @@ Route::get('getUser', [
     'as'   => 'getUser',     
 ]);
 
+//Route::post('Login', 'Auth\AuthController@postLogin');
+//Route::get('Logout', 'Auth\AuthController@getLogout');
+
 Route::post('Login', [
     'uses' => 'UsuarioController@postLogin',
     'as'   => 'Login',     
