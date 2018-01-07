@@ -28,24 +28,24 @@
         </div>
     @endif
 
-    <div class="container">
-        <div class="row text-center">
-            <div>
-                <h1 class="titulo">Productos ofertados</h1>
-                <br/>
-            </div>
-            <div class="col-sm-6 container-producto">
-                <img class="producto" src="{{url('assets/img/camisa.jpg')}}" alt="camisa">
-                <br/>
-                <button type="button" class="btn btn-info">Comprame</button>
-            </div>
-            <div class="col-sm-6 container-producto">
-                <img class="producto" src="{{url('assets/img/pantalon.jpg')}}" alt="pantalon">
-                <br/>
-                <button type="button" class="btn btn-info">Comprame</button>
-            </div>
+
+    <form action="/action_page.php">
+        <h1>¿Que desea comprar?</h1>
+        <div class="col-sm-6 container-producto">
+            <img class="producto" src="{{url('assets/img/camisa.jpg')}}" alt="camisa">
+            <br/>
+            <input type="checkbox" name="camisa" value="true">Camisa
         </div>
-    </div>
+        <div class="col-sm-6 container-producto">
+            <img class="producto" src="{{url('assets/img/pantalon.jpg')}}" alt="pantalon">
+            <br/>
+            <input type="checkbox" name="pantalon" value="true">Pantalon
+        </div>
+        <br/>
+        <div class="col-sm-12 text-center">
+            <button type="submit" class="btn btn-info">Comprar</button>
+        </div>
+    </form>
 
 
 

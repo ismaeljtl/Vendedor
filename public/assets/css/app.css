@@ -32,3 +32,8 @@
 html body div.container.container-login.col-sm-offset-4.col-sm-4 form div.col-sm-12.text-center input#id.form-control{
     margin-top: 15%;
 }
+
+h1{
+    margin-top: 0;
+    text-align: center;
+}
