@@ -33,42 +33,43 @@ class UsuarioController extends Controller
         return json_encode($users, true);
     }
 
-    public function login(Request $request)
-    {
-        $var = $request->all();
-        /*$user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
-        
-        if (Hash::check($user->clave, bcrypt($var['contraseña']))){
-            echo "hola";
-        }
-        else{
-            echo $user->clave;
-            echo "\n";
-            echo Hash::make("Contrasena1*");
-        }*/
-        
-        /*if (Hash::check($var['contraseña'], bcrypt($var['contraseña']))){
-            echo 'true';
-        }
-        else{
-            echo 'false';
-        }*/
-
-
-        /*if (Auth::attempt(['usuario' => $request->usuario, 'clave' => $request->contraseña ])) {
-            // Authentication passed...
-            //return redirect("productos")->with('status', 'true');
-            echo "true";            
-        }
-        else{
-            //return redirect("/")->with('status', 'false');
-            echo "false";
-        }*/
+    public function getUserData(Request $request){
+        $users = DB::table('Usuario')->select('usuario', 'intentos')->get();
+        return json_encode($users, true);
     }
 
-    public function logout(){   
+    public function postLogin(Request $request)
+    {   
+        $var = $request->all();
+        $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
+
+        $intento = $user->intentos;
+
+        if (Hash::check($request->input("contraseña"), $user->clave))
+        {
+            DB::table('Usuario')->where('id', $user->id)->update(['intentos' => 0]);
+            Auth::loginUsingId($user->id);
+            return redirect("productos")->with('status', 'true');
+        }
+        else{
+            $intento = $intento + 1;
+            DB::table('Usuario')->where('id', $user->id)->update(['intentos' => $intento]);
+            if ($intento == 3){
+                return redirect("/")->with('status', 'usuario bloqueado');
+            }
+            return redirect("/")->with('status', 'false');
+        }
+    }
+
+    public function getLogout(){   
         Auth::logout();
         session()->flush();
-        return redirect("{{url('site.index')}}"); 
+        return redirect("/")->with('status', 'false');
+    }
+
+    public function desbloquearUsuario(Request $request){
+        $var = $request->input("id");
+        DB::table('Usuario')->where('id', $var)->update(['intentos' => 0]);
+        return redirect("/")->with('status', 'false');
     }
 }

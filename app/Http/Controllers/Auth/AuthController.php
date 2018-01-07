@@ -71,16 +71,21 @@ class AuthController extends Controller
     {   
         $var = $request->all();
         $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
-        
-        
+
+        $intento = $user->intentos;
+
         if (Hash::check($request->input("contraseña"), $user->clave))
         {
-            echo "true";
+            DB::table('Usuario')->where('id', $user->id)->update(['intentos' => 0]);
             Auth::loginUsingId($user->id);
             return redirect("productos")->with('status', 'true');
         }
         else{
-            echo "false";
+            $intento = $intento + 1;
+            DB::table('Usuario')->where('id', $user->id)->update(['intentos' => $intento]);
+            if ($intento == 3){
+                return redirect("/")->with('status', 'usuario bloqueado');
+            }
             return redirect("/")->with('status', 'false');
         }
     }

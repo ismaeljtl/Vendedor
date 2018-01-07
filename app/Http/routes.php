@@ -24,23 +24,31 @@ Route::post('registrar', [
     'as'   => 'registrar',     
 ]);
 
+Route::get('getUserData', [
+    'uses' => 'UsuarioController@getUserData',
+    'as'   => 'getUserData',     
+]);
+
 Route::get('getUser', [
     'uses' => 'UsuarioController@getUser',
     'as'   => 'getUser',     
 ]);
 
-Route::post('Login', 'Auth\AuthController@postLogin');
-Route::get('Logout', 'Auth\AuthController@getLogout');
-
-/*Route::post('login', [
-    'uses' => 'UsuarioController@login',
-    'as'   => 'login',     
+Route::post('Login', [
+    'uses' => 'UsuarioController@postLogin',
+    'as'   => 'Login',     
 ]);
 
-Route::get('logout', [
-    'uses' => 'UsuarioController@logout',
-    'as'   => 'logout',     
-]);*/
+Route::get('Logout', [
+    'uses' => 'UsuarioController@getLogout',
+    'as'   => 'Logout',     
+]);
+
+Route::get('desbloquearUsuario', [
+    'uses' => 'UsuarioController@desbloquearUsuario',
+    'as'   => 'desbloquearUsuario',     
+]);
+
 
 Route::get('/productos', function () {
     return view('site/productos');

@@ -14,13 +14,13 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-
+    {{ session('status') }}
     <div class="container container-login col-sm-offset-4 col-sm-4">
         <form class="form-signin" method="POST" action="Login">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <h2 class="form-signin-heading text-center">Ingresar a la aplicación</h2>
             <br/>
-            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Nombre de usuario" required autofocus>
+            <input type="text" name="usuario" id="usuario-index" class="form-control" placeholder="Nombre de usuario" required autofocus>
             <input type="password" name="contraseña" id="contraseña" class="form-control" placeholder="Contraseña" required>
             <button class="btn btn-lg btn-primary btn-block" id="inicia-sesion" type="submit">Iniciar sesión</button>
             <br/>
@@ -29,6 +29,13 @@
         <div class="col-sm-12 text-center">
             <a href="{{url('registro')}}">¿No posees una cuenta? Regístrate aquí</a>
         </div>
+
+        <form method="GET" action="desbloquearUsuario">
+            <div class="col-sm-12 text-center">
+            <input type="text" name="id" id="id" class="form-control" placeholder="id del usuario" required autofocus>
+                <button type="submmit">Desbloquear usuario</button>
+            </div>
+        </form>
     </div> <!-- /container -->
 
 

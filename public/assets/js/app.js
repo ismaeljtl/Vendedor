@@ -27,7 +27,7 @@ $(document).ready(function(){
     });
     
     //Antes de enviar los datos al servidor los hasheo
-    /*$("#registrar").click(function(){
+    $("#registrar").click(function(){
         $("#contraseña").val( objectHash.sha1($("#contraseña").val()) );
         $("#respuesta-1").val( objectHash.sha1($("#respuesta-1").val()) );
         $("#respuesta-2").val( objectHash.sha1($("#respuesta-2").val()) );
@@ -36,9 +36,13 @@ $(document).ready(function(){
 
 
     //Logueo
-    /*$("#inicia-sesion").click(function(){
+    $("#usuario-index").keyup(function(){
+        bloqueaUsuario();
+    });
+    
+    $("#inicia-sesion").click(function(){
         $("#contraseña").val( objectHash.sha1($("#contraseña").val()) );
-    });*/
+    });
 });
 
 function validaUsuario (user){
@@ -85,6 +89,38 @@ function validaRespuesta (resp){
         $("#mensaje").text("La respuesta secreta debe ir en minúsculas");
         $("#registrar").prop('disabled', true);
     }
+}
+
+function bloqueaUsuario(){
+    $.ajax({
+        // la URL para la petición
+        url: 'getUserData',
+        // especifica si será una petición POST o GET
+        type: 'get',
+        // la información a enviar
+        data: {'_token': $('input[name=_token]').val() },
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',   
+        before: function() {
+            //
+        },     
+        success: function(data) {
+            for (var i=0; i<data.length; i++){
+                if (data[i]['usuario'] == $("#usuario-index").val()){
+                    if (data[i]['intentos'] == 3){
+                        //$("#mensaje").text("El usuario esta bloqueado");
+                        $("#inicia-sesion").prop('disabled', true);
+                    }
+                }
+                else{
+                    validaUsuario($("#usuario").val());
+                }
+            }            
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
 }
 
 function getUsuarios(){
