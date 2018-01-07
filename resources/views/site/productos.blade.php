@@ -14,12 +14,10 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-    {{ session('status') }}
-    {{ Auth::user()->usuario }}
     @if(Auth::check())
         <div class="col-sm-12 heading">
             <div class="col-sm-6">
-                <h4>Bienvenido!</h4>
+                <h4>Bienvenido {{ Auth::user()->usuario }}!</h4>
             </div>
             <div class="col-sm-6 text-right">
                 <form class="form-signin" method="GET" action="Logout">

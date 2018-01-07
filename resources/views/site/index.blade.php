@@ -14,7 +14,6 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-    {{ session('status') }}
     <div class="container container-login col-sm-offset-4 col-sm-4">
         <form class="form-signin" method="POST" action="Login">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
