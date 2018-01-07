@@ -29,18 +29,19 @@ Route::get('getUser', [
     'as'   => 'getUser',     
 ]);
 
+Route::post('Login', 'Auth\AuthController@postLogin');
+Route::get('Logout', 'Auth\AuthController@getLogout');
+
+/*Route::post('login', [
+    'uses' => 'UsuarioController@login',
+    'as'   => 'login',     
+]);
+
+Route::get('logout', [
+    'uses' => 'UsuarioController@logout',
+    'as'   => 'logout',     
+]);*/
+
 Route::get('/productos', function () {
     return view('site/productos');
 });
-
-/*
-//Registro de personas
-Route::get('formPersona', [
-            'uses' => 'PersonaController@index',
-            'as' => 'formPersona',     
-]);
-Route::post('createPersona', [
-            'uses' => 'PersonaController@create',
-            'as' => 'createPersona',     
-]);
-*/

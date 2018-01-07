@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Illuminate\Http\Request;
+use Auth;
+use Hash;
+use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -61,5 +65,29 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function postLogin(Request $request)
+    {   
+        $var = $request->all();
+        $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
+        
+        
+        if (Hash::check($request->input("contraseña"), $user->clave))
+        {
+            echo "true";
+            Auth::loginUsingId($user->id);
+            return redirect("productos")->with('status', 'true');
+        }
+        else{
+            echo "false";
+            return redirect("/")->with('status', 'false');
+        }
+    }
+
+    public function getLogout(){   
+        Auth::logout();
+        session()->flush();
+        return redirect("/")->with('status', 'false');
     }
 }

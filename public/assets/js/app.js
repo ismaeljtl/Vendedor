@@ -2,11 +2,12 @@ $(document).ready(function(){
 
     //uso de object_hash: var hash = objectHash.sha1("hola"); 
   
+    //Registro
     getUsuarios();
 
     $("#usuario").keyup(function(){
-        validaUsuario($("#usuario").val());
         getUsuarios();
+        
     });
 
     $("#repetir-contraseña").keyup(function(){
@@ -26,33 +27,38 @@ $(document).ready(function(){
     });
     
     //Antes de enviar los datos al servidor los hasheo
-    $("#registrar").click(function(){
+    /*$("#registrar").click(function(){
         $("#contraseña").val( objectHash.sha1($("#contraseña").val()) );
         $("#respuesta-1").val( objectHash.sha1($("#respuesta-1").val()) );
         $("#respuesta-2").val( objectHash.sha1($("#respuesta-2").val()) );
         $("#respuesta-3").val( objectHash.sha1($("#respuesta-3").val()) );
     });
+
+
+    //Logueo
+    /*$("#inicia-sesion").click(function(){
+        $("#contraseña").val( objectHash.sha1($("#contraseña").val()) );
+    });*/
 });
 
 function validaUsuario (user){
-    var regexUsuario = /^(?=.*\d)[A-Za-z\d]{4,16}$/g;
-
-    if (regexUsuario.test(user) == true){
-        $("#mensaje").text(" ");
-        $("#registrar").prop('disabled', false);
-    }
-    else {
+    var regexUsuario = /^(?=.*[0-9])[A-Za-z0-9]{4,16}$/g;
+    if (regexUsuario.test(user) != true){
         $("#mensaje").text("El nombre de usuario debe tener una longitud entre 4 y 16 caracteres alfanuméricos");
         $("#registrar").prop('disabled', true);
+    }
+    else{
+        $("#mensaje").text(" ");
+        $("#registrar").prop('disabled', false);
     }
 }
 
 function validaclaves (clave1, clave2){
-    var regexClave = /^(?=.*[A-Z])(?=.*[$@!%*?&])[A-Za-z\d$@!%*?&]{8,}$/g;
+    var regexClave = /^(?=.*[A-Z])(?=.*[$@!%*?&])[A-Za-z\d$@!%*?&]{8,16}$/g;
 
     if (clave1 == clave2){
         if (regexClave.test(clave1) != true){
-            $("#mensaje").text("La contraseña debe ser de una longitud entre 4 y 16 caracteres con al menos un carácter no alfa numérico y una letra mayúscula");
+            $("#mensaje").text("La contraseña debe ser de una longitud entre 8 y 16 caracteres con al menos un carácter no alfa numérico y una letra mayúscula");
             $("#registrar").prop('disabled', true);
         }
         else{
@@ -101,8 +107,7 @@ function getUsuarios(){
                     $("#registrar").prop('disabled', true);
                 }
                 else{
-                    $("#mensaje").text(" ");
-                    $("#registrar").prop('disabled', false);
+                    validaUsuario($("#usuario").val());
                 }
             }            
         },

@@ -14,15 +14,20 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-
-    <div class="col-sm-12 heading">
-        <div class="col-sm-6">
-            <h4>Bienvenido!</h4>
+    {{ Auth::user()->usuario }}
+    @if(Auth::check())
+        <div class="col-sm-12 heading">
+            <div class="col-sm-6">
+                <h4>Bienvenido!</h4>
+            </div>
+            <div class="col-sm-6 text-right">
+                <form class="form-signin" method="GET" action="Logout">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-primary salir">Salir</button>
+                </form>
+            </div>
         </div>
-        <div class="col-sm-6 text-right">
-            <button type="button" class="btn btn-primary salir"><a href="{{url('/')}}">Salir</a></button>
-        </div>
-    </div>
+    @endif
 
     <div class="container">
         <div class="row text-center">
