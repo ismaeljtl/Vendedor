@@ -43,6 +43,27 @@ $(document).ready(function(){
     $("#inicia-sesion").click(function(){
         $("#contraseña").val( objectHash.sha1($("#contraseña").val()) );
     });
+
+
+    //Productos
+    $("#check-camisa").click(function(){
+        if ($(this).prop('checked')){
+            $("#cantidad-camisa").prop('disabled', false);
+        }
+        else{
+            $("#cantidad-camisa").prop('disabled', true);
+        }
+    }); 
+
+    $("#check-pantalon").click(function(){
+        if ($(this).prop('checked')){
+            $("#cantidad-pantalon").prop('disabled', false);
+        }
+        else{
+            $("#cantidad-pantalon").prop('disabled', true);
+        }
+    }); 
+
 });
 
 function validaUsuario (user){

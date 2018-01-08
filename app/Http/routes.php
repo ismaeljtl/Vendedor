@@ -56,3 +56,8 @@ Route::get('desbloquearUsuario', [
 Route::get('/productos', function () {
     return view('site/productos');
 });
+
+Route::get('getCompra', [
+    'uses' => 'ProductoController@getCompra',
+    'as'   => 'getCompra',  
+]);

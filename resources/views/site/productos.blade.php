@@ -28,15 +28,17 @@
             </div>
         @endif
 
-        <form method="" action="#">
+        <form method="get" action="getCompra">
             <h1>¿Que desea comprar?</h1>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="col-sm-3"></div>
             @foreach($productos as $producto)
                 <div class="col-sm-3 container-producto">
-                    <img class="producto" src="{{$producto->imagen}}" alt="{{$producto->nombre}}">
+                    <img class="producto" id="producto" src="{{$producto->imagen}}" alt="{{$producto->nombre}}">
                     <br/>
-                    <input type="checkbox" name="{{$producto->nombre}}" value="true">{{$producto->nombre}}
+                    <label name="precio-{{$producto->nombre}}">Precio: {{$producto->precio}}</label><br/>
+                    <input type="checkbox" id="check-{{$producto->nombre}}" name="{{$producto->nombre}}" value="true">{{$producto->nombre}}
+                    <input id="cantidad-{{$producto->nombre}}" name="cantidad-{{$producto->nombre}}" type="number" min="0" value="0" disabled>
                 </div>
             @endforeach
             <br/>
@@ -50,5 +52,7 @@
         <script src="{{url('assets/js/jquery.js')}}"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
+        <!-- Custom JS -->
+        <script src="{{url('assets/js/app.js')}}"></script>
     </body>
 </html>
