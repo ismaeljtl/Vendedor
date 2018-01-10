@@ -17,18 +17,28 @@ class ProductoController extends Controller
         $monto = 0;
         $fecha = date("Y-m-d h:i:sa");
 
-        $cantCamisa = $request->input("cantidad-camisa");
-        $cantPantalon = $request->input("cantidad-pantalon");
+        $cantCamisa = (int)$request->input("cantidad-camisa");
+        $cantPantalon = (int)$request->input("cantidad-pantalon");
 
         if (array_key_exists('camisa', $var)){
             $camisa = DB::table('Producto')->where('nombre', 'camisa')->get();
-            $monto += $camisa[0]->precio * $cantCamisa; 
+            $monto += ((int)$camisa[0]->precio) * $cantCamisa; 
         }
         if (array_key_exists('pantalon', $var)){
             $pantalon = DB::table('Producto')->where('nombre', 'pantalon')->get();
-            $monto += $pantalon[0]->precio * $cantPantalon; 
+            $monto += ((int)$pantalon[0]->precio) * $cantPantalon; 
         }
         
+        echo "monto total ";
+        echo $monto;
+        echo " \n fecha ";
+        echo $fecha;
+        echo " \n cantidad camisa ";
+        echo $cantCamisa;
+        echo " \n cantidad pantalon ";
+        echo $cantPantalon;
+        echo " \n id usuario ";
+        echo Auth::user()->id;
     }
 
 }
