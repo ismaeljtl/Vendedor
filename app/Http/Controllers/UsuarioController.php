@@ -24,8 +24,7 @@ class UsuarioController extends Controller
             'respuesta2' => bcrypt($var['respuesta-2']),
             'respuesta3' => bcrypt($var['respuesta-3'])
         ]);
-
-        return view('site.index', array('usuario' => $usuario));
+        return redirect('/');
     }
 
     public function getUser(Request $request){
@@ -62,9 +61,9 @@ class UsuarioController extends Controller
             $intento = $intento + 1;
             DB::table('Usuario')->where('id', $user->id)->update(['intentos' => $intento]);
             if ($intento == 3){
-                return redirect("/")->with('status', 'usuario bloqueado');
+                return redirect("/");
             }
-            return redirect("/")->with('status', 'false');
+            return redirect("/");
         }
     }
 

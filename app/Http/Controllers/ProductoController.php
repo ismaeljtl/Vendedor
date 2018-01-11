@@ -28,17 +28,25 @@ class ProductoController extends Controller
             $pantalon = DB::table('Producto')->where('nombre', 'pantalon')->get();
             $monto += ((int)$pantalon[0]->precio) * $cantPantalon; 
         }
+
+        $transaccion = DB::table('Transaccion')->insert([
+            'monto' => $monto, 
+            'fecha' => $fecha,
+            'cantCamisa' => $cantCamisa, 
+            'cantPantalon' => $cantPantalon,
+            'estatusTransaccion' => "en proceso",
+            'Usuario_id' => Auth::user()->id
+        ]);
         
-        echo "monto total ";
-        echo $monto;
-        echo " \n fecha ";
-        echo $fecha;
-        echo " \n cantidad camisa ";
-        echo $cantCamisa;
-        echo " \n cantidad pantalon ";
-        echo $cantPantalon;
-        echo " \n id usuario ";
-        echo Auth::user()->id;
+        return view('site.tarjeta');
+    }
+
+    public function volverProd(){
+        $productos = DB::table('Producto')
+                        ->select('id', 'nombre', 'precio', 'descripcion', 'imagen')
+                        ->get();
+
+        return view("site.productos", ['productos' => $productos]);
     }
 
 }

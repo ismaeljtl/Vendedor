@@ -61,3 +61,13 @@ Route::get('getCompra', [
     'uses' => 'ProductoController@getCompra',
     'as'   => 'getCompra',  
 ]);
+
+Route::get('/volverProd', [
+    'uses' => 'ProductoController@volverProd',
+    'as'   => 'volverProd',  
+]);
+
+Route::get('/enviarTarjeta', [
+    'uses' => 'TarjetaController@enviarTarjeta',
+    'as'   => 'enviarTarjeta',  
+]);
