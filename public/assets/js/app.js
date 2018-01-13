@@ -64,6 +64,15 @@ $(document).ready(function(){
         }
     }); 
 
+
+    //Desbloqueo
+    $("#desbloquear").click(function(){
+        $('#id').prop('disabled', false);
+        $("#respuesta1").val( objectHash.sha1($("#respuesta1").val()) );
+        $("#respuesta2").val( objectHash.sha1($("#respuesta2").val()) );
+        $("#respuesta3").val( objectHash.sha1($("#respuesta3").val()) );
+    });
+
 });
 
 function validaUsuario (user){

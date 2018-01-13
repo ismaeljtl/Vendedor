@@ -30,9 +30,9 @@
             <a href="{{url('registro')}}">¿No posees una cuenta? Regístrate aquí</a>
         </div>
 
-        <form method="GET" action="desbloquearUsuario">
+        <form method="GET" action="vistaDesbloquear">
             <div class="col-sm-12 text-center">
-            <input type="text" name="id" id="id" class="form-control" placeholder="id del usuario" required autofocus>
+            <input type="text" name="user" id="user" class="form-control" placeholder="nombre de usuario" required autofocus>
                 <button type="submmit">Desbloquear usuario</button>
             </div>
         </form>

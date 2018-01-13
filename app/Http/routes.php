@@ -47,11 +47,15 @@ Route::get('Logout', [
     'as'   => 'Logout',     
 ]);
 
-Route::get('desbloquearUsuario', [
+Route::get('vistaDesbloquear', [
+    'uses' => 'UsuarioController@vistaDesbloquear',
+    'as'   => 'vistaDesbloquear',     
+]);
+
+Route::post('desbloquearUsuario', [
     'uses' => 'UsuarioController@desbloquearUsuario',
     'as'   => 'desbloquearUsuario',     
 ]);
-
 
 Route::get('/productos', function () {
     return view('site/productos');

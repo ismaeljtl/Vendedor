@@ -37,3 +37,17 @@ h1{
     margin-top: 0;
     text-align: center;
 }
+
+.pregunta{
+    margin-top: 12px;
+}
+
+#user{
+    margin-top: 10%;
+}
+
+.g-recaptcha{
+    margin: 0 auto;
+    display: block;
+    width: 73%;
+}

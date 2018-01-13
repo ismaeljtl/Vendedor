@@ -41,11 +41,12 @@ class UsuarioController extends Controller
     {   
         $var = $request->all();
         $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
-
         $intento = $user->intentos;
+
         $this->validate($request, [
             'g-recaptcha-response' => 'required|recaptcha',
         ]);
+
         if (Hash::check($request->input("contraseña"), $user->clave))
         {
             DB::table('Usuario')->where('id', $user->id)->update(['intentos' => 0]);
@@ -73,9 +74,31 @@ class UsuarioController extends Controller
         return redirect("/")->with('status', 'false');
     }
 
+    public function vistaDesbloquear(Request $request){
+        $user = $request->input("user");
+        $preguntas = DB::table('Usuario')->where('usuario', $user)->get();
+
+        return view("site.desbloqueo", ['preguntas' => $preguntas]);
+
+        //DB::table('Usuario')->where('id', $id)->update(['intentos' => 0]);
+        //return redirect("/")->with('status', 'false');
+    }
+
     public function desbloquearUsuario(Request $request){
-        $var = $request->input("id");
-        DB::table('Usuario')->where('id', $var)->update(['intentos' => 0]);
-        return redirect("/")->with('status', 'false');
+        $usuario = $request->all();
+        
+        $BD = DB::table('Usuario')->select('respuesta1', 'respuesta2', 'respuesta3')
+                                  ->where('id', $usuario['id'])->get();
+
+        if (Hash::check($usuario['respuesta1'], $BD[0]->respuesta1) && 
+            Hash::check($usuario['respuesta2'], $BD[0]->respuesta2) &&
+            Hash::check($usuario['respuesta3'], $BD[0]->respuesta3))
+        {
+            DB::table('Usuario')->where('id', $usuario['id'])->update(['intentos' => 0]);
+            return redirect("/");    
+        }
+        else{
+            echo 'las respuestas no son correctas';
+        }
     }
 }
