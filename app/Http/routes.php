@@ -71,7 +71,12 @@ Route::get('/volverProd', [
     'as'   => 'volverProd',  
 ]);
 
-Route::get('/enviarTarjeta', [
-    'uses' => 'TarjetaController@enviarTarjeta',
-    'as'   => 'enviarTarjeta',  
+Route::post('/getStatus', [
+    'uses' => 'TarjetaController@getStatus',
+    'as'   => 'getStatus',  
+]);
+
+Route::get('/getStatusTable', [
+    'uses' => 'TarjetaController@getStatusTable',
+    'as'   => 'getStatusTable',  
 ]);

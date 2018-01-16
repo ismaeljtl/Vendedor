@@ -43,9 +43,9 @@ class UsuarioController extends Controller
         $user = DB::table('Usuario')->where('usuario', $var['usuario'])->first();
         $intento = $user->intentos;
 
-        $this->validate($request, [
+        /*$this->validate($request, [
             'g-recaptcha-response' => 'required|recaptcha',
-        ]);
+        ]);*/
 
         if (Hash::check($request->input("contraseña"), $user->clave))
         {

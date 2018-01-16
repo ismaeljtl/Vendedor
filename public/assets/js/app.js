@@ -73,6 +73,12 @@ $(document).ready(function(){
         $("#respuesta3").val( objectHash.sha1($("#respuesta3").val()) );
     });
 
+
+    //Envio de datos de la tarjeta
+    $("#pagar").click(function(){
+        getStatus();
+    });
+
 });
 
 function validaUsuario (user){
@@ -176,6 +182,70 @@ function getUsuarios(){
                     validaUsuario($("#usuario").val());
                 }
             }            
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+
+// Metodo ajax que se encarga de guardar la transaccion en la BD con estatus en proceso
+function getStatus(){
+    $.ajax({
+        // la URL para la petición
+        url: 'getStatus',
+        // especifica si será una petición POST o GET
+        type: 'POST',
+        // la información a enviar
+        data: {'_token': $('input[name=_token]').val() },
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',   
+        before: function() {
+            //
+        },     
+        success: function(data) {
+            //envioDatos();
+            
+            var obj = { 
+                'numero_tarjeta' : $('#numero-tarjeta').val(), 
+                'cvv' : $('#cvv').val(),
+                'nombre_tarjetahabiente' : $('#tarjetahabiente').val(),
+                'fecha_vencimiento_mes' : $('#mes').val(),
+                'fecha_vencimiento_año' : $('#año').val(),
+                'identificacion' : $('#cedula').val(),
+                'monto' : data[0]['monto'],
+                'id_vendedor': 1,
+                'direccion_respuesta' : 'http://vendedor.seg/',
+                'id_transaccion' : data[0]['idTransaccion']
+            };
+            var myJSON = JSON.stringify(obj);
+
+            envioDatos(myJSON);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}
+
+// Metodo ajax que se encarga de enviar la tarjeta
+function envioDatos(myJSON){
+    $.ajax({
+        // la URL para la petición
+        url: 'bancocliente.seg/comprar',
+        // especifica si será una petición POST o GET
+        type: 'post',
+        // la información a enviar
+        data: myJSON,
+        // el tipo de información que se espera de respuesta
+        dataType: 'json', 
+        contentType: 'application/json; charset=utf-8',  
+        before: function() {
+            //
+        },     
+        success: function(data) {
+            console.log(data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);

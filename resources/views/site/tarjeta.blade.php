@@ -16,12 +16,13 @@
     <body>
     <div class="container container-login col-sm-offset-4 col-sm-4 text-center">
         <h1>Confirme su compra</h1>
-        <form class="form-signin" method="get" action="enviarTarjeta">
+        <form class="form-signin" method="" action="">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="text" name="tarjetahabiente" id="tarjetahabiente" class="form-control" placeholder="tarjetahabiente" required autofocus>
+            <input type="number" name="cedula" id="cedula" class="form-control" placeholder="cedula" required autofocus>
             <input type="password" name="cvv" id="cvv" class="form-control" placeholder="CVV" required autofocus>
             <input type="number" name="numero-tarjeta" id="numero-tarjeta" class="form-control" placeholder="Numero de tarjeta" required autofocus>
-            <select class="form-control" name="mes">
+            <select class="form-control" name="mes" id="mes">
                 <option>Enero</option>       
                 <option>Febrero</option>       
                 <option>Marzo</option>       
@@ -36,7 +37,7 @@
                 <option>Diciembre</option> 
             </select>
             <input type="number" name="año" id="año" class="form-control" placeholder="Año" required autofocus>
-            <button class="btn btn-lg btn-primary btn-block" id="pagar" type="submit">Pagar</button>
+            <button class="btn btn-lg btn-primary btn-block" id="pagar" type="button">Pagar</button>
         </form>
         
         <a href="{{url('volverProd')}}">Regresar</a>

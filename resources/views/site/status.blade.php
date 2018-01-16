@@ -27,29 +27,30 @@
                 </div>
             </div>
         @endif
-
-        <form method="get" action="getCompra">
-            <h1>¿Que desea comprar?</h1>
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="col-sm-3"></div>
-            @foreach($productos as $producto)
-                <div class="col-sm-3 container-producto">
-                    <img class="producto" id="producto" src="{{$producto->imagen}}" alt="{{$producto->nombre}}">
-                    <br/>
-                    <label name="precio-{{$producto->nombre}}">Precio: {{$producto->precio}}</label><br/>
-                    <input type="checkbox" id="check-{{$producto->nombre}}" name="{{$producto->nombre}}" value="true">{{$producto->nombre}}
-                    <input id="cantidad-{{$producto->nombre}}" name="cantidad-{{$producto->nombre}}" type="number" min="0" value="0" disabled>
-                </div>
-            @endforeach
+        
+        <div class="container text-center">
+            <h1>Status de compras Realizadas:</h1>
+            
+            <table style="width:100%">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Monto</th> 
+                    <th>Cantidad de camisas</th>
+                    <th>Cantidad de pantalones</th>
+                    <th>Estado de la transacción</th>
+                </tr>
+                @foreach ($datos as $dato)
+                <tr>
+                    <td>{{$dato->fecha}}</td>
+                    <td>{{$dato->monto}}</td> 
+                    <td>{{$dato->cantCamisa}}</td>
+                    <td>{{$dato->cantPantalon}}</td>
+                    <td>{{$dato->estatusTransaccion}}</td>
+                </tr>
+                @endforeach
+            </table>
             <br/>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-12 text-center">
-                <button type="submit" class="btn btn-info">Comprar</button>
-            </div>
-        </form>
-
-        <div class="col-sm-12 text-center status">
-            <a href="getStatusTable">Ver status de compras realizadas.</a>
+            <a href="{{url('volverProd')}}">Regresar</a>
         </div>
 
         <!-- jQuery -->
@@ -58,5 +59,8 @@
         <script src="{{url('assets/js/bootstrap.min.js')}}"></script>
         <!-- Custom JS -->
         <script src="{{url('assets/js/app.js')}}"></script>
+        <!-- Libreria para hash -->
+        <!-- https://github.com/puleos/object-hash -->
+        <script src="{{url('assets/js/object_hash.js')}}"></script>
     </body>
 </html>
